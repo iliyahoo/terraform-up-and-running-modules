@@ -1,3 +1,9 @@
+provider "aws" {
+    region  = "${var.my_region}"
+    profile = "${var.aws_profile}"
+}
+
+
 resource "aws_db_instance" "example" {
     engine = "mysql"
     allocated_storage = 5
@@ -26,7 +32,7 @@ data "terraform_remote_state" "vpc" {
     backend = "s3"
     config {
         bucket  = "terraform-up-and-running-state-iliyahoo"
-        key     = "my_code/${var.prefix}/vpc/terraform.tfstate"
+        key     = "${var.prefix}/vpc/terraform.tfstate"
         region  = "${var.my_region}"
         profile = "${var.aws_profile}"
     }
@@ -37,7 +43,7 @@ data "terraform_remote_state" "webserver" {
     backend = "s3"
     config {
         bucket  = "terraform-up-and-running-state-iliyahoo"
-        key     = "my_code/${var.prefix}/services/webserver-cluster/terraform.tfstate"
+        key     = "${var.prefix}/services/webserver-cluster/terraform.tfstate"
         region  = "${var.my_region}"
         profile = "${var.aws_profile}"
     }

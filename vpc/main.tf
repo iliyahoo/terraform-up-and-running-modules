@@ -1,3 +1,9 @@
+provider "aws" {
+    region  = "${var.my_region}"
+    profile = "${var.profile}"
+}
+
+
 resource "aws_vpc" "example" {
     cidr_block            = "${var.my_subnets["${var.my_region}"]}"
     instance_tenancy      = "default"

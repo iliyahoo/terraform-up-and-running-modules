@@ -1,3 +1,9 @@
+provider "aws" {
+    region  = "${var.my_region}"
+    profile = "${var.aws_profile}"
+}
+
+
 resource "aws_launch_configuration" "example" {
     instance_type     = "${var.instance_type}"
     key_name          = "${var.key_name}"
@@ -84,7 +90,7 @@ data "terraform_remote_state" "vpc" {
     backend = "s3"
     config {
         bucket  = "terraform-up-and-running-state-iliyahoo"
-        key     = "my_code/${var.prefix}/vpc/terraform.tfstate"
+        key     = "${var.prefix}/vpc/terraform.tfstate"
         region  = "${var.my_region}"
         profile = "${var.aws_profile}"
     }
@@ -95,7 +101,7 @@ data "terraform_remote_state" "db" {
     backend = "s3"
     config {
         bucket  = "terraform-up-and-running-state-iliyahoo"
-        key     = "my_code/${var.prefix}/data-storage/mysql/terraform.tfstate"
+        key     = "${var.prefix}/data-storage/mysql/terraform.tfstate"
         region  = "${var.my_region}"
         profile = "${var.aws_profile}"
     }
